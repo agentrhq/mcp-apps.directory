@@ -1,0 +1,38 @@
+{
+  "name": "mcp-apps",
+  "version": "0.1.0",
+  "description": "Install and validate MCP App manifests from mcp-apps.directory. Build once, run in ChatGPT and Claude.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agentrhq/mcp-apps.directory"
+  },
+  "homepage": "https://mcp-apps.directory",
+  "bin": {
+    "mcp-apps": "bin/mcp-apps.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "readme.md"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-apps",
+    "apps-sdk",
+    "chatgpt",
+    "claude",
+    "manifest",
+    "validator"
+  ]
+}

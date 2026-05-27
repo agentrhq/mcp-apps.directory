@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MCP Apps & Servers Directory</title>
+  <meta name="description" content="A curated index of MCP Apps, MCP servers, frameworks, and SDKs for ChatGPT and Claude. By Authsome.">
+  <style>
+    :root { --bg:#0A0A0A; --surface:#121212; --border:#222; --text:#FAFAFA; --muted:#888; --accent:#83CA16; }
+    *,*::before,*::after { box-sizing:border-box }
+    html,body { margin:0; padding:0; background:var(--bg); color:var(--text); font:15px/1.55 -apple-system,system-ui,Inter,sans-serif }
+    a { color:var(--accent); text-decoration:none }
+    a:hover { text-decoration:underline }
+    main { max-width:1100px; margin:0 auto; padding:64px 24px }
+    .eyebrow { color:var(--accent); font-family:ui-monospace,monospace; font-size:13px; letter-spacing:.06em; text-transform:uppercase; margin-bottom:12px }
+    h1 { font-size:48px; line-height:1.1; margin:0 0 16px; font-weight:700; letter-spacing:-0.02em }
+    .sub { color:var(--muted); font-size:18px; max-width:720px; margin-bottom:32px }
+    .cmd { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; background:var(--surface); border:1px solid var(--border); border-radius:6px; font-family:ui-monospace,monospace; color:var(--accent); margin-bottom:48px }
+    h2 { font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin:48px 0 12px; font-weight:600 }
+    h3 { font-size:14px; color:var(--text); margin:24px 0 8px; font-weight:600 }
+    ul.entries { list-style:none; padding:0; margin:0 }
+    ul.entries li { padding:10px 0; border-bottom:1px solid var(--border); font-size:14px; line-height:1.5 }
+    ul.entries li:last-child { border-bottom:none }
+    .official { color:var(--accent); margin-right:6px }
+    .chip { display:inline-block; padding:2px 7px; background:var(--surface); border:1px solid var(--border); border-radius:999px; font-family:ui-monospace,monospace; font-size:11px; color:var(--muted); margin-left:6px }
+    .desc { color:var(--muted); margin-left:6px }
+    .stars { color:var(--accent); font-family:ui-monospace,monospace; font-size:12px; margin-left:6px }
+    footer { margin-top:80px; padding-top:32px; border-top:1px solid var(--border); color:var(--muted); font-size:13px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px }
+    .legend { display:flex; gap:24px; flex-wrap:wrap; margin:24px 0 8px; color:var(--muted); font-size:12px; font-family:ui-monospace,monospace }
+  </style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Open source · By Authsome</div>
+  <h1>Awesome MCP Apps &amp; Servers</h1>
+  <p class="sub">A curated index of MCP Apps, MCP servers, frameworks, and SDKs for ChatGPT and Claude. Linked to upstream sources, not re-hosted.</p>
+  <div class="cmd">npm install -g mcp-apps</div>
+
+  <div class="legend">
+    <span>🎖️ Officially vendor-shipped</span>
+    <span>🏠 Self-hosted only</span>
+    <span>⚠ Experimental / unmaintained</span>
+    <span>★ N.Nk stars (for repos with significant momentum)</span>
+  </div>
+
+  <h2>Apps SDK widgets · cross-host</h2>
+  <ul class="entries" id="cross-host"></ul>
+
+  <h2>Open-source widget examples</h2>
+  <ul class="entries" id="examples"></ul>
+
+  <h2>MCP servers · top picks</h2>
+  <ul class="entries" id="servers"></ul>
+
+  <h2>Frameworks · for building Apps</h2>
+  <ul class="entries" id="frameworks"></ul>
+
+  <h2>Inspectors and devtools</h2>
+  <ul class="entries" id="tools"></ul>
+
+  <p style="margin-top:32px;color:var(--muted);font-size:13px">
+    See the <a href="https://github.com/agentrhq/mcp-apps.directory">full README on GitHub</a> for the complete list. 65+ entries across 14 categories.
+  </p>
+
+  <footer>
+    <span>Curated by <a href="https://authsome.dev">Authsome</a> · agent identity for third-party APIs</span>
+    <a href="https://github.com/agentrhq/mcp-apps.directory">github →</a>
+  </footer>
+</main>
+<script>
+const sections = {
+  "cross-host": [
+    ["Figma", "https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Dev-Mode-MCP-Server", "Comment on files, search nodes, sync design tokens.", true, ["oauth2","mcp.figma.com/mcp"], null],
+    ["Canva", "https://www.canva.com/help/connecting-to-chatgpt/", "Generate and edit designs from chat.", true, ["oauth2"], null],
+  ],
+  "examples": [
+    ["openai/openai-apps-sdk-examples", "https://github.com/openai/openai-apps-sdk-examples", "Five official references: Pizzaz, Solar System, Kitchen Sink, Shopping Cart, Authenticated.", true, ["mit","typescript"], "2.2k"],
+    ["modelcontextprotocol/ext-apps", "https://github.com/modelcontextprotocol/ext-apps", "Spec plus reference examples: threejs, map, pdf, system-monitor, sheet-music.", true, ["mit","cross-host"], "2.3k"],
+    ["excalidraw/excalidraw-mcp", "https://github.com/excalidraw/excalidraw-mcp", "Fast, streamable Excalidraw MCP App.", false, ["mit"], "4.6k"],
+    ["CopilotKit/generative-ui", "https://github.com/CopilotKit/generative-ui", "Generative UI for AG-UI, A2UI, and MCP Apps.", false, ["mit"], "719"],
+    ["microsoft/mcp-interactiveUI-samples", "https://github.com/microsoft/mcp-interactiveUI-samples", "Microsoft's lightweight pattern-focused UI samples.", false, ["mit"], "58"],
+  ],
+  "servers": [
+    ["GitHub", "https://github.com/github/github-mcp-server", "Issues, PRs, code search, releases.", true, ["api.githubcopilot.com/mcp/","mit"], "30k"],
+    ["Microsoft Playwright MCP", "https://github.com/microsoft/playwright-mcp", "Browser automation.", true, ["apache-2.0"], "33k"],
+    ["Linear", "https://linear.app/docs/mcp", "Search and manage issues and projects.", true, ["mcp.linear.app/mcp","oauth2"], null],
+    ["Notion", "https://www.notion.com/help/notion-mcp", "Read and write pages and databases.", true, ["mcp.notion.com/mcp","oauth2"], null],
+    ["Stripe", "https://docs.stripe.com/mcp", "Payments, billing, customer ops.", true, ["mcp.stripe.com","api-key"], null],
+    ["Slack", "https://docs.slack.dev/ai/slack-mcp-server/", "Post, search, and react to messages.", true, ["mcp.slack.com/mcp","oauth2"], null],
+    ["Supabase", "https://supabase.com/docs/guides/getting-started/mcp", "Database, tables, config.", true, ["mcp.supabase.com/mcp","api-key"], null],
+    ["PostHog", "https://posthog.com/docs/model-context-protocol", "HogQL queries, flags, errors.", true, ["mcp.posthog.com/mcp","api-key"], null],
+    ["Vercel", "https://vercel.com/docs/agent-resources/vercel-mcp", "Deployments and project ops.", true, ["mcp.vercel.com","oauth2"], null],
+    ["Cal.com", "https://cal.com/docs/mcp-server", "Bookings, event types, availability.", true, ["mcp.cal.com/mcp","api-key"], null],
+    ["Atlassian (Jira + Confluence)", "https://github.com/atlassian/atlassian-mcp-server", "Tickets, pages, search.", true, ["oauth2"], "729"],
+    ["Cloudflare", "https://github.com/cloudflare/mcp", "Cloudflare API access from agents.", true, ["oauth2"], "481"],
+    ["AWS Labs MCP", "https://github.com/awslabs/mcp", "Open-source MCP servers for AWS.", true, ["apache-2.0","🏠"], "9.1k"],
+    ["Sentry", "https://github.com/getsentry/sentry-mcp", "Issue management via LLM.", true, ["mit"], "706"],
+    ["Firecrawl", "https://github.com/firecrawl/firecrawl-mcp-server", "Scraping plus search for LLM clients.", true, ["mit"], "6.4k"],
+  ],
+  "frameworks": [
+    ["mcp-use", "https://github.com/mcp-use/mcp-use", "Fullstack MCP framework for ChatGPT and Claude Apps.", false, ["mit","typescript"], "10k"],
+    ["MCP-UI", "https://github.com/MCP-UI-Org/mcp-ui", "UI SDK that influenced the MCP Apps spec.", false, ["apache-2.0"], "4.9k"],
+    ["skybridge", "https://github.com/alpic-ai/skybridge", "TypeScript framework for MCP Apps and ChatGPT Apps.", false, ["mit"], "1.4k"],
+  ],
+  "tools": [
+    ["modelcontextprotocol/inspector", "https://github.com/modelcontextprotocol/inspector", "Visual testing tool for MCP servers.", true, ["mit"], "9.9k"],
+    ["MCPJam/inspector", "https://github.com/MCPJam/inspector", "Debugger for MCP servers and ChatGPT apps.", false, ["mit"], "2.0k"],
+    ["modelcontextprotocol/registry", "https://github.com/modelcontextprotocol/registry", "Community-driven MCP server registry.", true, ["mit"], "6.9k"],
+  ],
+};
+
+for (const [id, items] of Object.entries(sections)) {
+  const ul = document.getElementById(id);
+  if (!ul) continue;
+  ul.innerHTML = items.map(([name, url, desc, official, chips, stars]) => {
+    const star = stars ? `<span class="stars">★ ${stars}</span>` : "";
+    const chipHtml = (chips || []).map(c => `<span class="chip">${c}</span>`).join("");
+    const off = official ? `<span class="official">🎖️</span>` : "";
+    return `<li>${off}<a href="${url}" target="_blank">${name}</a><span class="desc">${desc}</span>${star}${chipHtml}</li>`;
+  }).join("");
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+{
+  "manifest_version": "1.0",
+  "server": {
+    "name": "posthog-query",
+    "url": "https://mcp.posthog.com/mcp",
+    "transport": "streamable-http"
+  },
+  "display": {
+    "name": "PostHog · Run query",
+    "description": "Run a HogQL query and render the result as a tabular card inside the chat.",
+    "icon": "https://cdn.mcp-apps.directory/icons/posthog.svg",
+    "categories": ["data"]
+  },
+  "auth": {
+    "type": "api-key",
+    "header": "Authorization",
+    "prefix": "Bearer ",
+    "envVar": "POSTHOG_PERSONAL_API_KEY"
+  },
+  "tools": [
+    {
+      "name": "run_query",
+      "title": "Run a HogQL query",
+      "description": "Execute a HogQL query against a PostHog project. Returns up to 200 rows.",
+      "inputSchema": {
+        "type": "object",
+        "required": ["project_id", "query"],
+        "properties": {
+          "project_id": { "type": "integer", "minimum": 1 },
+          "query": { "type": "string", "minLength": 1, "maxLength": 8000 },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": ["result"],
+        "properties": {
+          "result": {
+            "type": "object",
+            "required": ["columns", "rows"],
+            "properties": {
+              "columns": { "type": "array", "items": { "type": "string" } },
+              "rows": { "type": "array", "items": { "type": "array" } },
+              "row_count": { "type": "integer" },
+              "elapsed_ms": { "type": "integer" }
+            }
+          }
+        }
+      },
+      "securitySchemes": [{ "type": "api-key" }],
+      "annotations": { "readOnlyHint": true, "idempotentHint": true },
+      "_meta": {
+        "ui": { "resourceUri": "ui://widget/posthog-query.html", "visibility": ["model", "app"] }
+      }
+    }
+  ],
+  "resources": [
+    {
+      "uri": "ui://widget/posthog-query.html",
+      "mimeType": "text/html;profile=mcp-app",
+      "text": "<!doctype html><html><head><meta charset=\"utf-8\"><title>HogQL result</title><style>body{font:13px -apple-system,sans-serif;margin:0;padding:16px;background:#fff;color:#0f172a}table{width:100%;border-collapse:collapse;font-family:ui-monospace,monospace}th,td{padding:8px;border-bottom:1px solid #e2e8f0;text-align:left}th{background:#f1f5f9;font-weight:600;color:#475569}.meta{color:#64748b;font-size:12px;margin-top:8px}</style></head><body><div id=\"root\">Querying...</div><script>function render(d){const r=d?.result;if(!r)return;const head=r.columns.map(c=>`<th>${c}</th>`).join('');const body=r.rows.map(row=>`<tr>${row.map(v=>`<td>${v??''}</td>`).join('')}</tr>`).join('');document.getElementById('root').innerHTML=`<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table><div class=\"meta\">${r.row_count||r.rows.length} rows · ${r.elapsed_ms||0}ms</div>`}window.openai?.toolOutput&&render(window.openai.toolOutput);window.addEventListener('message',e=>{if(e.data?.type==='ui/notifications/tool-result')render(e.data.params?.structuredContent)});</script></body></html>",
+      "_meta": {
+        "ui": {
+          "domain": "posthog-query.widget.mcp-apps.directory",
+          "prefersBorder": true,
+          "csp": { "connectDomains": ["us.posthog.com", "eu.posthog.com"], "resourceDomains": [] }
+        }
+      }
+    }
+  ]
+}

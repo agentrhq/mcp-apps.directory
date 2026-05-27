@@ -1,0 +1,244 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mcp-apps.directory/schema/manifest.schema.json",
+  "title": "MCP App Manifest",
+  "description": "Schema for an MCP App manifest as consumed by ChatGPT (Apps SDK) and Claude (MCP Apps). Mirrors modelcontextprotocol/ext-apps and developers.openai.com/apps-sdk.",
+  "type": "object",
+  "required": ["manifest_version", "server", "tools"],
+  "additionalProperties": false,
+  "properties": {
+    "manifest_version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Schema version. Pinned at 1.0 for this directory."
+    },
+    "server": {
+      "type": "object",
+      "description": "MCP server endpoint the host will connect to.",
+      "required": ["name", "url"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "description": "Lowercase kebab-case server identifier."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^(https://|http://(localhost|127\\.0\\.0\\.1))",
+          "description": "HTTPS URL of the MCP server. http://localhost and http://127.0.0.1 allowed for self-hosted entries."
+        },
+        "transport": {
+          "type": "string",
+          "enum": ["streamable-http", "sse", "stdio"],
+          "default": "streamable-http"
+        }
+      }
+    },
+    "tools": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/tool" }
+    },
+    "resources": {
+      "type": "array",
+      "description": "UI widget resources rendered inside the host iframe.",
+      "items": { "$ref": "#/$defs/resource" }
+    },
+    "auth": {
+      "$ref": "#/$defs/auth"
+    },
+    "display": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "description": { "type": "string", "maxLength": 280 },
+        "icon": { "type": "string", "format": "uri" },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["dev-tools", "project-management", "comms", "billing", "data", "search", "content", "ops"]
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "tool": {
+      "type": "object",
+      "required": ["name", "title", "description", "inputSchema", "outputSchema"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$",
+          "description": "Unique tool identifier."
+        },
+        "title": { "type": "string", "maxLength": 64 },
+        "description": { "type": "string", "maxLength": 280 },
+        "inputSchema": {
+          "type": "object",
+          "description": "JSON Schema for tool arguments."
+        },
+        "outputSchema": {
+          "type": "object",
+          "description": "JSON Schema for the structuredContent returned by the tool."
+        },
+        "securitySchemes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/securityScheme" }
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "readOnlyHint": { "type": "boolean" },
+            "destructiveHint": { "type": "boolean" },
+            "openWorldHint": { "type": "boolean" },
+            "idempotentHint": { "type": "boolean" }
+          }
+        },
+        "_meta": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "ui": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "resourceUri": {
+                  "type": "string",
+                  "pattern": "^ui://"
+                },
+                "visibility": {
+                  "type": "array",
+                  "items": { "type": "string", "enum": ["model", "app"] }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "resource": {
+      "type": "object",
+      "required": ["uri", "mimeType", "_meta"],
+      "additionalProperties": false,
+      "properties": {
+        "uri": {
+          "type": "string",
+          "pattern": "^ui://widget/[a-z0-9-]+\\.html$"
+        },
+        "mimeType": {
+          "type": "string",
+          "const": "text/html;profile=mcp-app"
+        },
+        "text": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "_meta": {
+          "type": "object",
+          "required": ["ui"],
+          "additionalProperties": false,
+          "properties": {
+            "ui": {
+              "type": "object",
+              "required": ["domain"],
+              "additionalProperties": false,
+              "properties": {
+                "domain": {
+                  "type": "string",
+                  "format": "hostname",
+                  "description": "Unique origin for this widget. Required by both hosts."
+                },
+                "prefersBorder": { "type": "boolean" },
+                "csp": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "connectDomains": { "type": "array", "items": { "type": "string" } },
+                    "resourceDomains": { "type": "array", "items": { "type": "string" } },
+                    "frameDomains": { "type": "array", "items": { "type": "string" } }
+                  }
+                },
+                "permissions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["camera", "microphone", "geolocation", "clipboard-read", "clipboard-write"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "oneOf": [
+        { "required": ["text"] },
+        { "required": ["url"] }
+      ]
+    },
+    "auth": {
+      "type": "object",
+      "oneOf": [
+        { "$ref": "#/$defs/authNone" },
+        { "$ref": "#/$defs/authApiKey" },
+        { "$ref": "#/$defs/authOauth2" },
+        { "$ref": "#/$defs/authCustom" }
+      ]
+    },
+    "authNone": {
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "none" }
+      }
+    },
+    "authApiKey": {
+      "type": "object",
+      "required": ["type", "header"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "api-key" },
+        "header": { "type": "string", "minLength": 1 },
+        "prefix": { "type": "string" },
+        "envVar": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" }
+      }
+    },
+    "authOauth2": {
+      "type": "object",
+      "required": ["type", "scopes"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "oauth2" },
+        "scopes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "discoveryUrl": { "type": "string", "format": "uri" }
+      }
+    },
+    "authCustom": {
+      "type": "object",
+      "required": ["type", "documentationUrl"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "custom" },
+        "documentationUrl": { "type": "string", "format": "uri" }
+      }
+    },
+    "securityScheme": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "type": "string", "enum": ["noauth", "oauth2", "api-key"] },
+        "scopes": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

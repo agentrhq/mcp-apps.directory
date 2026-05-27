@@ -1,0 +1,71 @@
+{
+  "manifest_version": "1.0",
+  "server": {
+    "name": "slack-quick-post",
+    "url": "https://mcp.slack.com/mcp",
+    "transport": "streamable-http"
+  },
+  "display": {
+    "name": "Slack · Quick post",
+    "description": "Post a message to a Slack channel with live preview before sending.",
+    "icon": "https://cdn.mcp-apps.directory/icons/slack.svg",
+    "categories": ["comms"]
+  },
+  "auth": {
+    "type": "oauth2",
+    "scopes": ["chat:write", "channels:read"]
+  },
+  "tools": [
+    {
+      "name": "post_message",
+      "title": "Post to Slack",
+      "description": "Post a message to a Slack channel. Shows a live preview before the actual send.",
+      "inputSchema": {
+        "type": "object",
+        "required": ["channel", "text"],
+        "properties": {
+          "channel": { "type": "string", "minLength": 1 },
+          "text": { "type": "string", "minLength": 1, "maxLength": 40000 },
+          "thread_ts": { "type": "string" }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": ["message"],
+        "properties": {
+          "message": {
+            "type": "object",
+            "required": ["ts", "channel", "text", "permalink"],
+            "properties": {
+              "ts": { "type": "string" },
+              "channel": { "type": "string" },
+              "channel_name": { "type": "string" },
+              "text": { "type": "string" },
+              "permalink": { "type": "string", "format": "uri" },
+              "user_name": { "type": "string" }
+            }
+          }
+        }
+      },
+      "securitySchemes": [{ "type": "oauth2", "scopes": ["chat:write"] }],
+      "annotations": { "destructiveHint": false },
+      "_meta": {
+        "ui": { "resourceUri": "ui://widget/slack-quick-post.html", "visibility": ["model", "app"] }
+      }
+    }
+  ],
+  "resources": [
+    {
+      "uri": "ui://widget/slack-quick-post.html",
+      "mimeType": "text/html;profile=mcp-app",
+      "text": "<!doctype html><html><head><meta charset=\"utf-8\"><title>Slack message</title><style>body{font:14px Lato,-apple-system,sans-serif;margin:0;padding:16px;background:#fff;color:#1d1c1d}.msg{border-left:4px solid #4a154b;padding:8px 12px;background:#f8f8f8;border-radius:0 4px 4px 0}.head{display:flex;justify-content:space-between;font-size:12px;color:#616061;margin-bottom:4px}.ch{font-weight:700;color:#1264a3}.text{white-space:pre-wrap;line-height:1.45}a{color:#1264a3;text-decoration:none}</style></head><body><div id=\"root\">Posting...</div><script>function render(d){const m=d?.message;if(!m)return;document.getElementById('root').innerHTML=`<div class=\"msg\"><div class=\"head\"><span class=\"ch\">#${m.channel_name||m.channel}</span><a href=\"${m.permalink}\" target=\"_blank\">open</a></div><div class=\"text\">${m.text.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</div></div>`}window.openai?.toolOutput&&render(window.openai.toolOutput);window.addEventListener('message',e=>{if(e.data?.type==='ui/notifications/tool-result')render(e.data.params?.structuredContent)});</script></body></html>",
+      "_meta": {
+        "ui": {
+          "domain": "slack-quick-post.widget.mcp-apps.directory",
+          "prefersBorder": true,
+          "csp": { "connectDomains": ["slack.com"], "resourceDomains": ["files.slack.com"] }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+name: reverify-stale
+
+on:
+  schedule:
+    - cron: "0 14 * * 1"
+  workflow_dispatch:
+
+jobs:
+  open-issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Find stale entries
+        id: stale
+        run: |
+          set -e
+          today=$(date -u +%s)
+          stale=()
+          for f in entries/*/readme.md; do
+            verified=$(grep -E '^verified_date:' "$f" | head -1 | awk '{print $2}')
+            [ -z "$verified" ] && continue
+            ts=$(date -u -d "$verified" +%s 2>/dev/null || python3 -c "import datetime,sys;print(int(datetime.datetime.fromisoformat('$verified').timestamp()))")
+            age=$(( (today - ts) / 86400 ))
+            if [ "$age" -gt 90 ]; then
+              slug=$(basename "$(dirname "$f")")
+              stale+=("$slug:$age")
+            fi
+          done
+          printf "stale=%s\n" "${stale[*]}" >> "$GITHUB_OUTPUT"
+      - name: Open issues
+        if: steps.stale.outputs.stale != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const stale = "${{ steps.stale.outputs.stale }}".split(" ").filter(Boolean);
+            for (const item of stale) {
+              const [slug, age] = item.split(":");
+              const title = `[reverify] ${slug} (verified ${age} days ago)`;
+              const existing = await github.rest.issues.listForRepo({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: "open",
+                labels: "needs-reverification",
+              });
+              if (existing.data.some(i => i.title === title)) continue;
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                labels: ["needs-reverification"],
+                body: `\`${slug}\` was last verified ${age} days ago. Please re-open in both hosts, capture fresh screenshots, and bump \`verified_date\`.`,
+              });
+            }

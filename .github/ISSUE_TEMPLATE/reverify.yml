@@ -1,0 +1,30 @@
+name: Re-verify an entry
+description: Flag an existing entry as needing fresh screenshots or manifest fixes.
+title: "[reverify] <slug>"
+labels: ["needs-reverification"]
+body:
+  - type: input
+    id: slug
+    attributes:
+      label: Entry slug
+      placeholder: "linear-search"
+    validations:
+      required: true
+  - type: dropdown
+    id: reason
+    attributes:
+      label: Reason
+      multiple: true
+      options:
+        - "verified_date is over 90 days old"
+        - "Manifest no longer validates"
+        - "App no longer renders in ChatGPT"
+        - "App no longer renders in Claude"
+        - "Vendor changed auth model"
+        - "Broken URL"
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Details

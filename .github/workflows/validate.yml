@@ -1,0 +1,87 @@
+name: validate
+
+on:
+  pull_request:
+    paths:
+      - "entries/**"
+      - "schema/**"
+      - "cli/**"
+      - ".github/workflows/validate.yml"
+  push:
+    branches: [main]
+
+jobs:
+  schema:
+    name: Manifest schema + lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install CLI
+        working-directory: cli
+        run: npm install
+      - name: Validate every manifest
+        run: |
+          set -e
+          for f in entries/*/manifest.json; do
+            echo "::group::$f"
+            node cli/bin/mcp-apps.js validate "$f"
+            echo "::endgroup::"
+          done
+      - name: Lint readme files
+        run: |
+          set -e
+          fail=0
+          for f in entries/*/readme.md readme.md contributing.md; do
+            if grep -nP '[—–]' "$f"; then
+              echo "::error file=$f::em-dash or en-dash found"
+              fail=1
+            fi
+            if [[ "$(basename "$f")" != "$(basename "$f" | tr '[:upper:]' '[:lower:]')" ]]; then
+              echo "::error file=$f::filename must be lowercase"
+              fail=1
+            fi
+          done
+          exit $fail
+      - name: Frontmatter required keys
+        run: |
+          set -e
+          for f in entries/*/readme.md; do
+            for key in name vendor slug category hosts auth requires_authsome verified_date verified_by manifest_version; do
+              if ! grep -q "^${key}:" "$f"; then
+                echo "::error file=$f::missing frontmatter key '${key}'"
+                exit 1
+              fi
+            done
+          done
+      - name: Asset presence
+        run: |
+          set -e
+          for dir in entries/*/; do
+            for asset in manifest.json readme.md preview.png claude.png chatgpt.png install.sh; do
+              if [ ! -f "${dir}${asset}" ]; then
+                echo "::error::missing ${dir}${asset}"
+                exit 1
+              fi
+            done
+          done
+      - name: Unique widget domains
+        run: |
+          set -e
+          dups=$(node -e "
+            const fs=require('fs'),path=require('path');
+            const seen=new Map();
+            for (const d of fs.readdirSync('entries')){
+              const m=JSON.parse(fs.readFileSync(path.join('entries',d,'manifest.json'),'utf8'));
+              for (const r of (m.resources||[])){
+                const dom=r._meta?.ui?.domain;
+                if(!dom) continue;
+                if(seen.has(dom)){
+                  console.log(\`duplicate domain '\${dom}' in \${d} and \${seen.get(dom)}\`);
+                  process.exitCode=1;
+                } else seen.set(dom,d);
+              }
+            }")
+          [ -z "$dups" ] || (echo "$dups" && exit 1)

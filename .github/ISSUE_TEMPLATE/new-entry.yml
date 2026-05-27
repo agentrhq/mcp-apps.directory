@@ -1,0 +1,55 @@
+name: Propose a new entry
+description: Suggest an MCP App we should add to the directory.
+title: "[entry] <vendor> · <capability>"
+labels: ["new-entry"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: App name
+      placeholder: "Linear · Search issues"
+    validations:
+      required: true
+  - type: input
+    id: vendor
+    attributes:
+      label: Vendor
+      placeholder: "linear"
+    validations:
+      required: true
+  - type: input
+    id: repo
+    attributes:
+      label: Source repo or docs URL
+      placeholder: "https://github.com/..."
+    validations:
+      required: true
+  - type: dropdown
+    id: hosts
+    attributes:
+      label: Where does it already run?
+      multiple: true
+      options:
+        - ChatGPT (Apps SDK)
+        - Claude (MCP Apps)
+        - Neither (proposing a community port)
+    validations:
+      required: true
+  - type: dropdown
+    id: auth
+    attributes:
+      label: Auth model
+      options:
+        - none
+        - api-key
+        - oauth2
+        - custom
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Why is this entry worth adding?
+      description: One paragraph. What does it do that the gallery does not already cover?
+    validations:
+      required: true
