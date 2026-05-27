@@ -1,45 +1,43 @@
 # Show HN draft
 
-## Title (max 80 chars)
+Skip this if you don't want the HN attention. The repo is a curated list; it does not have a product story strong enough to bait HN votes. If you post it and it dies on page 4, that's the realistic outcome.
 
-`Show HN: A gallery of 12 MCP Apps that run unchanged in ChatGPT and Claude`
+If you do post:
 
-(75 chars. No marketing words.)
+## Title (under 80 chars)
+
+`Show HN: An MCP servers + Apps SDK directory for ChatGPT and Claude`
+
+(67 chars. No marketing words. No "introducing". No emojis.)
 
 ## Body
 
-We built mcp-apps.directory because every MCP App example we found was either ChatGPT-only or Claude-only. The new MCP Apps spec (April 2026 Apps SDK, May 2026 Claude support) lets a single manifest render in both hosts, but nobody had cross-host verified examples.
+I wanted to know what MCP servers and Apps existed for a project I'm building and couldn't find a list that split apps with widget UIs from tool-only servers, or that labelled which hosts each one actually works in. So I made one.
 
-The repo has:
+The repo:
 
-- 12 hand-authored manifests for Linear, Notion, Figma, Stripe, GitHub, Slack, Gmail, Cal.com, PostHog, Vercel, Resend, Supabase.
-- A JSON Schema (2020-12) for the manifest, with a CI workflow that runs on every PR.
-- An `mcp-apps` CLI: `npm install -g mcp-apps && mcp-apps install linear-search --host both` writes the manifest into both Claude Desktop and ChatGPT's connector config.
-- Six of the twelve include an `authsome.md` with a working recipe for keeping third-party credentials out of the host's connector store.
+- 144 entries across 14 categories, each linked to its upstream source.
+- Apps-SDK-widget entries (the rare ones with in-chat UI) separated from MCP servers (the common tool-only kind).
+- Per-entry chips for license and auth model.
+- 58 entries marked as officially vendor-shipped, 6 as self-hosted only.
+- A small CLI that takes 12 starter manifests and writes them to Claude Desktop's connector config or exports them for ChatGPT.
+- 6 worked recipes (`authsome.md`) for keeping the third-party API key out of the host's connector store using a credential proxy pattern.
 
-Every entry has a `verified_date` and screenshots in both hosts. Entries older than 90 days auto-open a re-verification issue.
+It sits one layer up from [punkpeye/awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers) (88K stars, exhaustive on servers). I link to it. I do not duplicate it.
 
-Pain points we hit:
+Repo: [github.com/agentrhq/mcp-apps.directory](https://github.com/agentrhq/mcp-apps.directory)
 
-- ChatGPT and Claude differ on the OAuth callback domain, but the manifest is otherwise identical.
-- `_meta.ui.domain` must be unique across the directory; we lint for it.
-- Widget HTML must stay small. Anything over ~500 KB gets rejected by ChatGPT.
-
-Repo: https://github.com/agentrhq/mcp-apps.directory
-Preview gallery: https://mcp-apps.directory
-
-Curated by us at Authsome. The authsome.md recipes are optional; the manifests work without them. We are looking for contributors to add their own working manifests via PR. The bar is cross-host verified screenshots and a passing CI run.
+I maintain it because I needed it. Contributions follow the standard awesome-list PR template. Direct competitors of mine (Infisical, Bitwarden) are not in scope here, but they will be in a separate repo I'm building on agent credential vaulting.
 
 ## Comment-ready answers
 
-**"Why not just contribute to openai/openai-apps-sdk-examples?"**
-OpenAI's repo is curated by OpenAI and tests against ChatGPT only. We test in both hosts and accept community PRs.
+**"Why not just contribute to punkpeye/awesome-mcp-servers?"**
+Different shape. Punkpeye is comprehensive on servers. This list adds the Apps SDK widget cut, the host-aware labels, the auth chip, and the starter manifests, none of which fit the source list's structure.
 
-**"What's the moat?"**
-Cross-host verification + the CLI. The schema is our second-order moat: if the spec changes, our schema and CI catch breakage before merge.
+**"What's `mcp-apps install` actually do?"**
+Fetches the manifest from the repo, validates it against a JSON Schema, and writes it to `~/Library/Application Support/Claude/claude_desktop_config.json` (or the equivalent on Linux/Windows). For ChatGPT it exports a connector JSON you paste into Settings.
 
-**"Is this a thin wrapper over awesome-mcp-servers?"**
-That repo curates servers; we curate apps. Different layer.
+**"Why the Authsome footer?"**
+I built and maintain the repo. Authsome is my product. The `authsome.md` files demonstrate the credential proxy pattern; the rest of the repo works without Authsome.
 
-**"Why does Authsome appear in the footer?"**
-We built and maintain the repo. Authsome is our auth-injection product. The six `authsome.md` files are optional; they exist because the community asked.
+**Honest expectation:** if this lands on the front page, great. If it doesn't, the repo still does its job for anyone who searches the topic later.
