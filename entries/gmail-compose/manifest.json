@@ -9,11 +9,15 @@
     "name": "Gmail · Compose draft",
     "description": "Compose a Gmail draft from the chat. Returns a preview card with subject and recipients.",
     "icon": "https://cdn.mcp-apps.directory/icons/gmail.svg",
-    "categories": ["comms"]
+    "categories": [
+      "comms"
+    ]
   },
   "auth": {
     "type": "oauth2",
-    "scopes": ["https://www.googleapis.com/auth/gmail.compose"]
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.compose"
+    ]
   },
   "tools": [
     {
@@ -22,50 +26,91 @@
       "description": "Create a draft email in the user's Gmail account. Does not send.",
       "inputSchema": {
         "type": "object",
-        "required": ["to", "subject", "body"],
+        "required": [
+          "to",
+          "subject",
+          "body"
+        ],
         "properties": {
-          "to": { "type": "array", "items": { "type": "string", "format": "email" }, "minItems": 1, "maxItems": 100 },
-          "cc": { "type": "array", "items": { "type": "string", "format": "email" } },
-          "subject": { "type": "string", "minLength": 1, "maxLength": 998 },
-          "body": { "type": "string", "maxLength": 100000 },
-          "html": { "type": "boolean", "default": false }
+          "to": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "email"
+            },
+            "minItems": 1,
+            "maxItems": 100
+          },
+          "cc": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "email"
+            }
+          },
+          "subject": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 998
+          },
+          "body": {
+            "type": "string",
+            "maxLength": 100000
+          },
+          "html": {
+            "type": "boolean",
+            "default": false
+          }
         }
       },
       "outputSchema": {
         "type": "object",
-        "required": ["draft"],
+        "required": [
+          "draft"
+        ],
         "properties": {
           "draft": {
             "type": "object",
-            "required": ["id", "url", "to", "subject"],
+            "required": [
+              "id",
+              "url",
+              "to",
+              "subject"
+            ],
             "properties": {
-              "id": { "type": "string" },
-              "url": { "type": "string", "format": "uri" },
-              "to": { "type": "array", "items": { "type": "string" } },
-              "subject": { "type": "string" },
-              "snippet": { "type": "string" }
+              "id": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "to": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "subject": {
+                "type": "string"
+              },
+              "snippet": {
+                "type": "string"
+              }
             }
           }
         }
       },
-      "securitySchemes": [{ "type": "oauth2", "scopes": ["https://www.googleapis.com/auth/gmail.compose"] }],
-      "annotations": { "destructiveHint": false },
-      "_meta": {
-        "ui": { "resourceUri": "ui://widget/gmail-compose.html", "visibility": ["model", "app"] }
-      }
-    }
-  ],
-  "resources": [
-    {
-      "uri": "ui://widget/gmail-compose.html",
-      "mimeType": "text/html;profile=mcp-app",
-      "text": "<!doctype html><html><head><meta charset=\"utf-8\"><title>Gmail draft</title><style>body{font:14px Roboto,-apple-system,sans-serif;margin:0;padding:16px;background:#fff;color:#202124}.card{border:1px solid #dadce0;border-radius:8px;padding:16px}.row{display:flex;gap:8px;font-size:13px;color:#5f6368;margin:2px 0}.label{min-width:60px;color:#5f6368}.val{color:#202124}.subj{font-weight:600;font-size:15px;margin:6px 0}.snip{color:#5f6368;font-size:13px;margin-top:6px;line-height:1.4}a{color:#1a73e8;text-decoration:none}</style></head><body><div id=\"root\">Drafting...</div><script>function render(d){const x=d?.draft;if(!x)return;document.getElementById('root').innerHTML=`<a class=\"card\" href=\"${x.url}\" target=\"_blank\"><div class=\"row\"><span class=\"label\">To</span><span class=\"val\">${x.to.join(', ')}</span></div><div class=\"subj\">${x.subject}</div>${x.snippet?`<div class=\"snip\">${x.snippet}</div>`:''}</a>`}window.openai?.toolOutput&&render(window.openai.toolOutput);window.addEventListener('message',e=>{if(e.data?.type==='ui/notifications/tool-result')render(e.data.params?.structuredContent)});</script></body></html>",
-      "_meta": {
-        "ui": {
-          "domain": "gmail-compose.widget.mcp-apps.directory",
-          "prefersBorder": true,
-          "csp": { "connectDomains": ["gmail.googleapis.com"], "resourceDomains": ["mail.google.com"] }
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "https://www.googleapis.com/auth/gmail.compose"
+          ]
         }
+      ],
+      "annotations": {
+        "destructiveHint": false
       }
     }
   ]

@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://mcp-apps.directory/schema/manifest.schema.json",
-  "title": "MCP App Manifest",
-  "description": "Schema for an MCP App manifest as consumed by ChatGPT (Apps SDK) and Claude (MCP Apps). Mirrors modelcontextprotocol/ext-apps and developers.openai.com/apps-sdk.",
+  "title": "MCP Server Manifest",
+  "description": "Schema for an MCP server install config. Resources array (widget UI) is optional and only used by entries that ship vendor-served widget HTML.",
   "type": "object",
   "required": ["manifest_version", "server", "tools"],
   "additionalProperties": false,

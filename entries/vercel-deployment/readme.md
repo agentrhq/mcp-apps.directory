@@ -13,14 +13,12 @@ manifest_version: 1.0
 
 # Vercel · View deployment
 
-Look up a Vercel deployment by id and render a status card. Shows project, state, branch, commit, and the live URL.
-
-![Preview](preview.png)
+Look up a Vercel deployment by id and return its project, state, branch, commit, and the live URL.
 
 ## What it does
 
 - Reads any `dpl_*` deployment the user has access to.
-- Renders state as a colored chip matching Vercel's UI (READY blue, BUILDING amber, ERROR red).
+- Returns the state as a colored chip matching Vercel's UI (READY blue, BUILDING amber, ERROR red).
 - Read-only; safe to call without confirmation.
 
 ## Install
@@ -32,11 +30,6 @@ mcp-apps install vercel-deployment --host both
 ## Auth
 
 Vercel OAuth with `read:deployments`. First call links via the host's connector UI.
-
-## Hosts verified
-
-- **ChatGPT** ([chatgpt.png](chatgpt.png)).
-- **Claude** ([claude.png](claude.png)).
 
 ## Source
 

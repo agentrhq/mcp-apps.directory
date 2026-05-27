@@ -2,28 +2,22 @@
 
 ## Summary
 
-What the app does, in one sentence.
+What the entry connects to, in one sentence.
 
 ## Verification checklist
 
-This is the gate. Every box must be ticked.
-
-- [ ] `manifest.json` passes `npx mcp-apps validate`.
-- [ ] I personally installed this app in **ChatGPT** within the last 7 days.
-- [ ] I personally installed this app in **Claude** within the last 7 days.
-- [ ] `chatgpt.png` is a real, unmodified screenshot of the working state in ChatGPT.
-- [ ] `claude.png` is a real, unmodified screenshot of the working state in Claude.
-- [ ] `preview.png` is 1200x675.
-- [ ] Every URL in `readme.md` resolves (no 404, no auth-wall redirects).
+- [ ] `manifest.json` passes `node cli/bin/mcp-apps.js validate`.
+- [ ] `server.url` resolves (HTTP 200/301/302, or 401 if the endpoint requires auth).
 - [ ] Frontmatter `verified_date` is within 7 days of this PR.
-- [ ] `_meta.ui.domain` is unique across the directory.
-- [ ] If the app hits a third-party API, `authsome.md` is included.
+- [ ] If the server hits a third-party API, an `authsome.md` recipe is included.
 - [ ] No em-dashes in `readme.md`.
+- [ ] No fictional widget HTML or fabricated URLs.
 
-## Hosts verified
+## Hosts where you ran this
 
-- ChatGPT version: `...`
-- Claude version: `...`
+- [ ] ChatGPT, version: `...`
+- [ ] Claude, version: `...`
+- [ ] Other client, version: `...`
 
 ## Notes for reviewers
 

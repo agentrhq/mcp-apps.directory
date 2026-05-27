@@ -13,9 +13,7 @@ manifest_version: 1.0
 
 # GitHub · Open issue
 
-Open a GitHub issue from inside the chat. The widget returns a card showing the issue number, repo, title, and a link back to github.com.
-
-![Preview](preview.png)
+Open a GitHub issue from inside the chat.com.
 
 ## What it does
 
@@ -32,11 +30,6 @@ mcp-apps install github-open-issue --host both
 ## Auth
 
 OAuth via GitHub's hosted MCP. The first call links your account through the host's connector UI. No personal access tokens to manage.
-
-## Hosts verified
-
-- **ChatGPT** ([chatgpt.png](chatgpt.png)).
-- **Claude** ([claude.png](claude.png)).
 
 ## Source
 

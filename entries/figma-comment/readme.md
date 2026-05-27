@@ -13,9 +13,7 @@ manifest_version: 1.0
 
 # Figma · Comment on file
 
-Post a Figma comment from the chat. Anchor to a specific node or leave it on the file itself. The response renders as a card with a deep link.
-
-![Preview](preview.png)
+Post a Figma comment from the chat. Anchor to a specific node or leave it on the file itself.
 
 ## What it does
 
@@ -32,11 +30,6 @@ mcp-apps install figma-comment --host both
 ## Auth
 
 Figma OAuth with the `file_comments:write` and `file_content:read` scopes. First call triggers the host's connector linking UI.
-
-## Hosts verified
-
-- **ChatGPT** ([chatgpt.png](chatgpt.png)).
-- **Claude** ([claude.png](claude.png)).
 
 ## Source
 

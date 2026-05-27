@@ -9,7 +9,9 @@
     "name": "Resend · Send email",
     "description": "Send a transactional email via Resend and render the confirmation card.",
     "icon": "https://cdn.mcp-apps.directory/icons/resend.svg",
-    "categories": ["comms"]
+    "categories": [
+      "comms"
+    ]
   },
   "auth": {
     "type": "api-key",
@@ -24,51 +26,89 @@
       "description": "Send a transactional email via Resend. Supports plain text and HTML.",
       "inputSchema": {
         "type": "object",
-        "required": ["from", "to", "subject"],
+        "required": [
+          "from",
+          "to",
+          "subject"
+        ],
         "properties": {
-          "from": { "type": "string", "format": "email" },
-          "to": { "type": "array", "items": { "type": "string", "format": "email" }, "minItems": 1, "maxItems": 50 },
-          "subject": { "type": "string", "minLength": 1, "maxLength": 998 },
-          "text": { "type": "string", "maxLength": 100000 },
-          "html": { "type": "string", "maxLength": 200000 },
-          "reply_to": { "type": "string", "format": "email" }
+          "from": {
+            "type": "string",
+            "format": "email"
+          },
+          "to": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "email"
+            },
+            "minItems": 1,
+            "maxItems": 50
+          },
+          "subject": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 998
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 100000
+          },
+          "html": {
+            "type": "string",
+            "maxLength": 200000
+          },
+          "reply_to": {
+            "type": "string",
+            "format": "email"
+          }
         }
       },
       "outputSchema": {
         "type": "object",
-        "required": ["email"],
+        "required": [
+          "email"
+        ],
         "properties": {
           "email": {
             "type": "object",
-            "required": ["id", "from", "to", "subject"],
+            "required": [
+              "id",
+              "from",
+              "to",
+              "subject"
+            ],
             "properties": {
-              "id": { "type": "string" },
-              "from": { "type": "string" },
-              "to": { "type": "array", "items": { "type": "string" } },
-              "subject": { "type": "string" },
-              "delivery_url": { "type": "string", "format": "uri" }
+              "id": {
+                "type": "string"
+              },
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "subject": {
+                "type": "string"
+              },
+              "delivery_url": {
+                "type": "string",
+                "format": "uri"
+              }
             }
           }
         }
       },
-      "securitySchemes": [{ "type": "api-key" }],
-      "annotations": { "destructiveHint": false },
-      "_meta": {
-        "ui": { "resourceUri": "ui://widget/resend-send.html", "visibility": ["model", "app"] }
-      }
-    }
-  ],
-  "resources": [
-    {
-      "uri": "ui://widget/resend-send.html",
-      "mimeType": "text/html;profile=mcp-app",
-      "text": "<!doctype html><html><head><meta charset=\"utf-8\"><title>Email sent</title><style>body{font:14px -apple-system,sans-serif;margin:0;padding:20px;background:#fff;color:#0a0a0a}.card{border:1px solid #e5e5e5;border-radius:10px;padding:18px}.head{display:flex;align-items:center;gap:8px;margin-bottom:10px}.dot{width:8px;height:8px;border-radius:50%;background:#22c55e}.label{font-size:12px;color:#666;letter-spacing:.04em;text-transform:uppercase}.row{display:flex;gap:6px;font-size:13px;margin:3px 0}.k{color:#666;min-width:60px}.v{color:#0a0a0a}.subj{font-weight:600;margin-top:8px}a{color:#0a0a0a;text-decoration:underline}</style></head><body><div id=\"root\">Sending...</div><script>function render(d){const e=d?.email;if(!e)return;document.getElementById('root').innerHTML=`<div class=\"card\"><div class=\"head\"><span class=\"dot\"></span><span class=\"label\">Sent · id ${e.id}</span></div><div class=\"row\"><span class=\"k\">From</span><span class=\"v\">${e.from}</span></div><div class=\"row\"><span class=\"k\">To</span><span class=\"v\">${e.to.join(', ')}</span></div><div class=\"subj\">${e.subject}</div>${e.delivery_url?`<div class=\"row\" style=\"margin-top:8px\"><a href=\"${e.delivery_url}\" target=\"_blank\">View delivery</a></div>`:''}</div>`}window.openai?.toolOutput&&render(window.openai.toolOutput);window.addEventListener('message',e=>{if(e.data?.type==='ui/notifications/tool-result')render(e.data.params?.structuredContent)});</script></body></html>",
-      "_meta": {
-        "ui": {
-          "domain": "resend-send.widget.mcp-apps.directory",
-          "prefersBorder": true,
-          "csp": { "connectDomains": ["api.resend.com"], "resourceDomains": [] }
+      "securitySchemes": [
+        {
+          "type": "api-key"
         }
+      ],
+      "annotations": {
+        "destructiveHint": false
       }
     }
   ]

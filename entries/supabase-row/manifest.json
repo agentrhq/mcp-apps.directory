@@ -9,7 +9,9 @@
     "name": "Supabase · Read row",
     "description": "Fetch a row by primary key from any Supabase table and render the field values as a card.",
     "icon": "https://cdn.mcp-apps.directory/icons/supabase.svg",
-    "categories": ["data"]
+    "categories": [
+      "data"
+    ]
   },
   "auth": {
     "type": "api-key",
@@ -23,47 +25,69 @@
       "description": "Read a single row from a table by primary key. Returns all selected columns.",
       "inputSchema": {
         "type": "object",
-        "required": ["project_url", "table", "key_column", "key_value"],
+        "required": [
+          "project_url",
+          "table",
+          "key_column",
+          "key_value"
+        ],
         "properties": {
-          "project_url": { "type": "string", "format": "uri", "pattern": "^https://[a-z0-9]+\\.supabase\\.co" },
-          "table": { "type": "string", "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$" },
-          "key_column": { "type": "string", "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$" },
-          "key_value": { "type": ["string", "integer"] },
-          "select": { "type": "string", "default": "*" }
+          "project_url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://[a-z0-9]+\\.supabase\\.co"
+          },
+          "table": {
+            "type": "string",
+            "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$"
+          },
+          "key_column": {
+            "type": "string",
+            "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$"
+          },
+          "key_value": {
+            "type": [
+              "string",
+              "integer"
+            ]
+          },
+          "select": {
+            "type": "string",
+            "default": "*"
+          }
         }
       },
       "outputSchema": {
         "type": "object",
-        "required": ["row"],
+        "required": [
+          "row"
+        ],
         "properties": {
           "row": {
             "type": "object",
-            "required": ["fields"],
+            "required": [
+              "fields"
+            ],
             "properties": {
-              "table": { "type": "string" },
-              "fields": { "type": "object", "additionalProperties": true }
+              "table": {
+                "type": "string"
+              },
+              "fields": {
+                "type": "object",
+                "additionalProperties": true
+              }
             }
           }
         }
       },
-      "securitySchemes": [{ "type": "api-key" }],
-      "annotations": { "readOnlyHint": true, "idempotentHint": true },
-      "_meta": {
-        "ui": { "resourceUri": "ui://widget/supabase-row.html", "visibility": ["model", "app"] }
-      }
-    }
-  ],
-  "resources": [
-    {
-      "uri": "ui://widget/supabase-row.html",
-      "mimeType": "text/html;profile=mcp-app",
-      "text": "<!doctype html><html><head><meta charset=\"utf-8\"><title>Supabase row</title><style>body{font:13px -apple-system,sans-serif;margin:0;padding:16px;background:#fff;color:#1f2937}.card{border:1px solid #e5e7eb;border-radius:8px;padding:16px}.table{font-family:ui-monospace,monospace;color:#3ecf8e;font-weight:700;margin-bottom:10px}.row{display:flex;gap:12px;padding:6px 0;border-bottom:1px solid #f3f4f6}.row:last-child{border-bottom:none}.k{min-width:120px;color:#6b7280;font-family:ui-monospace,monospace;font-size:12px}.v{color:#111827;font-family:ui-monospace,monospace;font-size:12px;word-break:break-all}</style></head><body><div id=\"root\">Loading...</div><script>function fmt(v){if(v===null)return '<em>null</em>';if(typeof v==='object')return JSON.stringify(v);return String(v)}function render(d){const r=d?.row;if(!r)return;const rows=Object.entries(r.fields).map(([k,v])=>`<div class=\"row\"><span class=\"k\">${k}</span><span class=\"v\">${fmt(v)}</span></div>`).join('');document.getElementById('root').innerHTML=`<div class=\"card\"><div class=\"table\">${r.table||'row'}</div>${rows}</div>`}window.openai?.toolOutput&&render(window.openai.toolOutput);window.addEventListener('message',e=>{if(e.data?.type==='ui/notifications/tool-result')render(e.data.params?.structuredContent)});</script></body></html>",
-      "_meta": {
-        "ui": {
-          "domain": "supabase-row.widget.mcp-apps.directory",
-          "prefersBorder": true,
-          "csp": { "connectDomains": ["*.supabase.co", "*.supabase.in"], "resourceDomains": [] }
+      "securitySchemes": [
+        {
+          "type": "api-key"
         }
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
       }
     }
   ]

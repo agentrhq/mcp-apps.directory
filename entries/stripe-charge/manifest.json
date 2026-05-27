@@ -9,7 +9,9 @@
     "name": "Stripe · Charge customer",
     "description": "Create a one-time charge against a saved Stripe customer and render the receipt inline.",
     "icon": "https://cdn.mcp-apps.directory/icons/stripe.svg",
-    "categories": ["billing"]
+    "categories": [
+      "billing"
+    ]
   },
   "auth": {
     "type": "api-key",
@@ -24,50 +26,84 @@
       "description": "Charge a saved Stripe customer in a given currency. Returns the charge id, status, and receipt url.",
       "inputSchema": {
         "type": "object",
-        "required": ["customer_id", "amount", "currency"],
+        "required": [
+          "customer_id",
+          "amount",
+          "currency"
+        ],
         "properties": {
-          "customer_id": { "type": "string", "pattern": "^cus_[A-Za-z0-9]+$" },
-          "amount": { "type": "integer", "minimum": 50, "description": "Amount in the smallest currency unit (cents)." },
-          "currency": { "type": "string", "minLength": 3, "maxLength": 3, "pattern": "^[a-z]{3}$" },
-          "description": { "type": "string", "maxLength": 500 }
+          "customer_id": {
+            "type": "string",
+            "pattern": "^cus_[A-Za-z0-9]+$"
+          },
+          "amount": {
+            "type": "integer",
+            "minimum": 50,
+            "description": "Amount in the smallest currency unit (cents)."
+          },
+          "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3,
+            "pattern": "^[a-z]{3}$"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 500
+          }
         }
       },
       "outputSchema": {
         "type": "object",
-        "required": ["charge"],
+        "required": [
+          "charge"
+        ],
         "properties": {
           "charge": {
             "type": "object",
-            "required": ["id", "status", "amount", "currency"],
+            "required": [
+              "id",
+              "status",
+              "amount",
+              "currency"
+            ],
             "properties": {
-              "id": { "type": "string" },
-              "status": { "type": "string", "enum": ["succeeded", "pending", "failed"] },
-              "amount": { "type": "integer" },
-              "currency": { "type": "string" },
-              "receipt_url": { "type": "string", "format": "uri" },
-              "customer_name": { "type": "string" }
+              "id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "succeeded",
+                  "pending",
+                  "failed"
+                ]
+              },
+              "amount": {
+                "type": "integer"
+              },
+              "currency": {
+                "type": "string"
+              },
+              "receipt_url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "customer_name": {
+                "type": "string"
+              }
             }
           }
         }
       },
-      "securitySchemes": [{ "type": "api-key" }],
-      "annotations": { "destructiveHint": true, "idempotentHint": false },
-      "_meta": {
-        "ui": { "resourceUri": "ui://widget/stripe-charge.html", "visibility": ["model", "app"] }
-      }
-    }
-  ],
-  "resources": [
-    {
-      "uri": "ui://widget/stripe-charge.html",
-      "mimeType": "text/html;profile=mcp-app",
-      "text": "<!doctype html><html><head><meta charset=\"utf-8\"><title>Stripe charge</title><style>body{font:14px -apple-system,sans-serif;margin:0;padding:20px;color:#0a2540;background:#fff}.card{border:1px solid #e6ebf1;border-radius:8px;padding:20px}.amount{font-size:28px;font-weight:700}.row{display:flex;justify-content:space-between;color:#697386;font-size:13px;margin:4px 0}.ok{color:#0e7a3a;font-weight:600}.bad{color:#cd3500;font-weight:600}a{color:#635bff;text-decoration:none}</style></head><body><div id=\"root\">Processing...</div><script>function fmt(a,c){return new Intl.NumberFormat(undefined,{style:'currency',currency:c.toUpperCase()}).format(a/100)}function render(d){const c=d?.charge;if(!c)return;const cls=c.status==='succeeded'?'ok':'bad';document.getElementById('root').innerHTML=`<div class=\"card\"><div class=\"amount\">${fmt(c.amount,c.currency)}</div><div class=\"row\"><span>Status</span><span class=\"${cls}\">${c.status}</span></div><div class=\"row\"><span>Customer</span><span>${c.customer_name||c.id}</span></div>${c.receipt_url?`<div class=\"row\"><span>Receipt</span><a href=\"${c.receipt_url}\" target=\"_blank\">view</a></div>`:''}</div>`}window.openai?.toolOutput&&render(window.openai.toolOutput);window.addEventListener('message',e=>{if(e.data?.type==='ui/notifications/tool-result')render(e.data.params?.structuredContent)});</script></body></html>",
-      "_meta": {
-        "ui": {
-          "domain": "stripe-charge.widget.mcp-apps.directory",
-          "prefersBorder": true,
-          "csp": { "connectDomains": ["api.stripe.com"], "resourceDomains": ["files.stripe.com"] }
+      "securitySchemes": [
+        {
+          "type": "api-key"
         }
+      ],
+      "annotations": {
+        "destructiveHint": true,
+        "idempotentHint": false
       }
     }
   ]

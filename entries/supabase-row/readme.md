@@ -13,9 +13,7 @@ manifest_version: 1.0
 
 # Supabase · Read row
 
-Read a single row from any Supabase table by primary key. Renders the field values as a compact monospaced card.
-
-![Preview](preview.png)
+Read a single row from any Supabase table by primary key. Returns the field values.
 
 ## What it does
 
@@ -32,11 +30,6 @@ mcp-apps install supabase-row --host both
 ## Auth
 
 Uses a Supabase **service role key**. **This key has full database access.** Never paste it into the host config directly. See [authsome.md](authsome.md) for the recipe that scopes the key to a single table and injects it at request time.
-
-## Hosts verified
-
-- **ChatGPT** ([chatgpt.png](chatgpt.png)).
-- **Claude** ([claude.png](claude.png)).
 
 ## Source
 

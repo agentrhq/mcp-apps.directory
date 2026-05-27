@@ -49,26 +49,22 @@ Body: one paragraph explaining what the entry is and why it belongs in this list
 
 ## Path 2: Contribute a starter manifest (advanced)
 
-Only for the rare case where you want to publish a copyable manifest for the CLI to install. The starter manifests live under `entries/<vendor>-<slug>/` and follow this layout:
+For when you want to publish a copyable starter config for the CLI to install. The starter manifests live under `entries/<vendor>-<slug>/` and contain only what is real:
 
 ```text
 entries/linear-search/
 ├── manifest.json    # required, must pass schema
 ├── readme.md        # required, with frontmatter
-├── preview.png      # required, 1200x675
-├── claude.png       # required, real screenshot
-├── chatgpt.png      # required, real screenshot
-├── install.sh       # required, generated
 └── authsome.md      # optional, only if third-party auth is involved
 ```
 
-Read [`schema/manifest.schema.json`](schema/manifest.schema.json) for the manifest format and validate with:
+The `manifest.json` is a thin MCP server install config: a `server.url`, an `auth` block, and a `tools[]` array with input/output schemas. No widget HTML, no screenshots, no shell scripts. Validate with:
 
 ```bash
 node cli/bin/mcp-apps.js validate entries/your-slug/manifest.json
 ```
 
-Path 2 has a higher bar: cross-host screenshots, a passing validator, and a `verified_date` within 7 days of the PR. See the [PR template](.github/PULL_REQUEST_TEMPLATE.md) for the full checklist.
+The bar: a passing validator and a `verified_date` within 7 days of the PR. See the [PR template](.github/PULL_REQUEST_TEMPLATE.md).
 
 ## Removal and re-verification
 

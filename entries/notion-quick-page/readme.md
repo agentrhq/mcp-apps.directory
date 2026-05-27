@@ -15,13 +15,11 @@ manifest_version: 1.0
 
 Create a Notion page from inside the chat. Returns a preview card with the page title, cover, and URL.
 
-![Preview](preview.png)
-
 ## What it does
 
 - Creates a new Notion page in any workspace you have access to.
 - Optionally nests under a parent page or database via `parent_id`.
-- Renders the resulting page as a clickable preview card.
+- Returns the resulting page as a clickable preview card.
 
 ## Install
 
@@ -32,11 +30,6 @@ mcp-apps install notion-quick-page --host both
 ## Auth
 
 Uses Notion's hosted MCP server at `mcp.notion.com` with OAuth. The first call triggers the host's connector linking UI. No client-side credentials.
-
-## Hosts verified
-
-- **ChatGPT:** widget renders inline ([chatgpt.png](chatgpt.png)).
-- **Claude:** widget renders without border, matches Notion's chrome ([claude.png](claude.png)).
 
 ## Source
 

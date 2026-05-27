@@ -9,11 +9,16 @@
     "name": "Linear · Search",
     "description": "Search Linear issues from inside ChatGPT or Claude, then open the result inline.",
     "icon": "https://cdn.mcp-apps.directory/icons/linear.svg",
-    "categories": ["project-management"]
+    "categories": [
+      "project-management"
+    ]
   },
   "auth": {
     "type": "oauth2",
-    "scopes": ["read", "write"],
+    "scopes": [
+      "read",
+      "write"
+    ],
     "discoveryUrl": "https://mcp.linear.app/.well-known/oauth-authorization-server"
   },
   "tools": [
@@ -23,60 +28,83 @@
       "description": "Search Linear issues by full-text query. Returns up to 25 matches with team, state, and assignee.",
       "inputSchema": {
         "type": "object",
-        "required": ["query"],
+        "required": [
+          "query"
+        ],
         "properties": {
-          "query": { "type": "string", "minLength": 1, "maxLength": 200 },
-          "limit": { "type": "integer", "minimum": 1, "maximum": 50, "default": 25 }
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "default": 25
+          }
         }
       },
       "outputSchema": {
         "type": "object",
-        "required": ["issues"],
+        "required": [
+          "issues"
+        ],
         "properties": {
           "issues": {
             "type": "array",
             "items": {
               "type": "object",
-              "required": ["id", "identifier", "title", "url"],
+              "required": [
+                "id",
+                "identifier",
+                "title",
+                "url"
+              ],
               "properties": {
-                "id": { "type": "string" },
-                "identifier": { "type": "string" },
-                "title": { "type": "string" },
-                "url": { "type": "string", "format": "uri" },
-                "state": { "type": "string" },
-                "team": { "type": "string" },
-                "assignee": { "type": "string" },
-                "priority": { "type": "integer", "minimum": 0, "maximum": 4 }
+                "id": {
+                  "type": "string"
+                },
+                "identifier": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "state": {
+                  "type": "string"
+                },
+                "team": {
+                  "type": "string"
+                },
+                "assignee": {
+                  "type": "string"
+                },
+                "priority": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4
+                }
               }
             }
           }
         }
       },
-      "securitySchemes": [{ "type": "oauth2", "scopes": ["read"] }],
-      "annotations": { "readOnlyHint": true, "idempotentHint": true },
-      "_meta": {
-        "ui": {
-          "resourceUri": "ui://widget/linear-search.html",
-          "visibility": ["model", "app"]
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read"
+          ]
         }
-      }
-    }
-  ],
-  "resources": [
-    {
-      "uri": "ui://widget/linear-search.html",
-      "mimeType": "text/html;profile=mcp-app",
-      "text": "<!doctype html><html><head><meta charset=\"utf-8\"><title>Linear Search</title><style>body{font:14px -apple-system,system-ui,sans-serif;margin:0;padding:16px;color:#1c1c1c;background:#fff}.issue{padding:12px;border:1px solid #e5e5e5;border-radius:8px;margin-bottom:8px;cursor:pointer}.issue:hover{border-color:#5e6ad2}.id{font-family:ui-monospace,monospace;color:#5e6ad2;font-weight:600;margin-right:8px}.meta{color:#888;font-size:12px;margin-top:4px}</style></head><body><div id=\"root\">Loading...</div><script>const root=document.getElementById('root');function render(data){if(!data?.issues?.length){root.textContent='No issues found.';return}root.innerHTML=data.issues.map(i=>`<div class=\"issue\" onclick=\"window.open('${i.url}','_blank')\"><span class=\"id\">${i.identifier}</span>${i.title}<div class=\"meta\">${i.team||''} · ${i.state||''} · ${i.assignee||'unassigned'}</div></div>`).join('')}window.openai?.toolOutput&&render(window.openai.toolOutput);window.addEventListener('message',e=>{if(e.data?.type==='ui/notifications/tool-result')render(e.data.params?.structuredContent)});</script></body></html>",
-      "_meta": {
-        "ui": {
-          "domain": "linear-search.widget.mcp-apps.directory",
-          "prefersBorder": true,
-          "csp": {
-            "connectDomains": ["api.linear.app"],
-            "resourceDomains": [],
-            "frameDomains": []
-          }
-        }
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
       }
     }
   ]

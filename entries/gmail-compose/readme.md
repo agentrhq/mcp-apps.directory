@@ -13,9 +13,7 @@ manifest_version: 1.0
 
 # Gmail · Compose draft
 
-Compose a Gmail draft from inside the chat. The widget renders a Gmail-styled preview card with the recipients, subject, and snippet. **Does not send.**
-
-![Preview](preview.png)
+Compose a Gmail draft from inside the chat. **Does not send.**
 
 ## What it does
 
@@ -32,11 +30,6 @@ mcp-apps install gmail-compose --host both
 ## Auth
 
 Google OAuth with the `gmail.compose` scope. For BYO Google Cloud projects, see [authsome.md](authsome.md) for the recipe that keeps client secrets out of the host config.
-
-## Hosts verified
-
-- **ChatGPT** ([chatgpt.png](chatgpt.png)).
-- **Claude** ([claude.png](claude.png)).
 
 ## Source
 

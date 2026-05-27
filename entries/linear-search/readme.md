@@ -13,9 +13,7 @@ manifest_version: 1.0
 
 # Linear · Search
 
-Search Linear issues from inside ChatGPT or Claude. Results render as a clickable list inside the chat surface; clicking opens the issue in the Linear web app.
-
-![Preview](preview.png)
+Search Linear issues from inside ChatGPT or Claude. Results come back with id, title, team, and a deep link to linear.app.
 
 ## What it does
 
@@ -39,14 +37,9 @@ curl -fsSL https://raw.githubusercontent.com/agentrhq/mcp-apps.directory/main/en
 
 Uses Linear's remote MCP OAuth flow. First call triggers the host's connector linking UI. See [authsome.md](authsome.md) for the credential-injection recipe if you do not want to ship Linear OAuth credentials through the host.
 
-## Hosts verified
-
-- **ChatGPT** rendered the widget on the first call. See [chatgpt.png](chatgpt.png).
-- **Claude** rendered the same widget with `prefersBorder: true`. See [claude.png](claude.png).
-
 ## Source
 
-Linear ships the remote MCP server at `https://mcp.linear.app/mcp`. This entry wraps that server with the official Apps SDK widget bundle.
+Linear ships the remote MCP server at `https://mcp.linear.app/mcp`. This entry wraps that server.
 
 ---
 

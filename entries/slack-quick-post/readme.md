@@ -13,9 +13,7 @@ manifest_version: 1.0
 
 # Slack · Quick post
 
-Post a Slack message from the chat. The widget renders a preview that matches Slack's message styling, including channel name and a "open" link.
-
-![Preview](preview.png)
+Post a Slack message from the chat.
 
 ## What it does
 
@@ -32,11 +30,6 @@ mcp-apps install slack-quick-post --host both
 ## Auth
 
 OAuth via Slack with the `chat:write` scope. For workspaces where the host cannot complete OAuth, use [authsome.md](authsome.md) to inject a bot token instead.
-
-## Hosts verified
-
-- **ChatGPT** ([chatgpt.png](chatgpt.png)).
-- **Claude** ([claude.png](claude.png)) with live preview before send.
 
 ## Source
 

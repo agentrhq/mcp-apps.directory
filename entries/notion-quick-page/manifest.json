@@ -9,11 +9,16 @@
     "name": "Notion · Quick page",
     "description": "Create a Notion page from a prompt without leaving the chat. Returns a preview card with the page URL.",
     "icon": "https://cdn.mcp-apps.directory/icons/notion.svg",
-    "categories": ["content"]
+    "categories": [
+      "content"
+    ]
   },
   "auth": {
     "type": "oauth2",
-    "scopes": ["insert_content", "read_content"],
+    "scopes": [
+      "insert_content",
+      "read_content"
+    ],
     "discoveryUrl": "https://mcp.notion.com/.well-known/oauth-authorization-server"
   },
   "tools": [
@@ -23,47 +28,69 @@
       "description": "Create a new Notion page in a workspace the user has access to. Optionally provide a parent database id.",
       "inputSchema": {
         "type": "object",
-        "required": ["title", "content_markdown"],
+        "required": [
+          "title",
+          "content_markdown"
+        ],
         "properties": {
-          "title": { "type": "string", "minLength": 1, "maxLength": 200 },
-          "content_markdown": { "type": "string", "maxLength": 50000 },
-          "parent_id": { "type": "string", "description": "Optional Notion page or database id." }
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "content_markdown": {
+            "type": "string",
+            "maxLength": 50000
+          },
+          "parent_id": {
+            "type": "string",
+            "description": "Optional Notion page or database id."
+          }
         }
       },
       "outputSchema": {
         "type": "object",
-        "required": ["page"],
+        "required": [
+          "page"
+        ],
         "properties": {
           "page": {
             "type": "object",
-            "required": ["id", "url", "title"],
+            "required": [
+              "id",
+              "url",
+              "title"
+            ],
             "properties": {
-              "id": { "type": "string" },
-              "url": { "type": "string", "format": "uri" },
-              "title": { "type": "string" },
-              "cover": { "type": "string", "format": "uri" }
+              "id": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "title": {
+                "type": "string"
+              },
+              "cover": {
+                "type": "string",
+                "format": "uri"
+              }
             }
           }
         }
       },
-      "securitySchemes": [{ "type": "oauth2", "scopes": ["insert_content"] }],
-      "annotations": { "destructiveHint": false, "idempotentHint": false },
-      "_meta": {
-        "ui": { "resourceUri": "ui://widget/notion-quick-page.html", "visibility": ["model", "app"] }
-      }
-    }
-  ],
-  "resources": [
-    {
-      "uri": "ui://widget/notion-quick-page.html",
-      "mimeType": "text/html;profile=mcp-app",
-      "text": "<!doctype html><html><head><meta charset=\"utf-8\"><title>Notion page</title><style>body{font:14px -apple-system,sans-serif;margin:0;padding:24px;color:#37352f;background:#fff}.card{border:1px solid #ebebea;border-radius:8px;padding:20px;display:flex;align-items:center;gap:16px}.icon{width:48px;height:48px;background:#f7f6f3;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:24px}.title{font-weight:600;font-size:16px;margin-bottom:4px}.url{color:#888;font-size:12px;font-family:ui-monospace,monospace}a{color:#37352f;text-decoration:none}</style></head><body><div id=\"root\">Creating page...</div><script>function render(d){if(!d?.page){return}const p=d.page;document.getElementById('root').innerHTML=`<a class=\"card\" href=\"${p.url}\" target=\"_blank\"><div class=\"icon\">${'📄'}</div><div><div class=\"title\">${p.title}</div><div class=\"url\">${p.url}</div></div></a>`}window.openai?.toolOutput&&render(window.openai.toolOutput);window.addEventListener('message',e=>{if(e.data?.type==='ui/notifications/tool-result')render(e.data.params?.structuredContent)});</script></body></html>",
-      "_meta": {
-        "ui": {
-          "domain": "notion-quick-page.widget.mcp-apps.directory",
-          "prefersBorder": false,
-          "csp": { "connectDomains": ["api.notion.com"], "resourceDomains": ["www.notion.so"] }
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "insert_content"
+          ]
         }
+      ],
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": false
       }
     }
   ]

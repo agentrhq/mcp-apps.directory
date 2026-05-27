@@ -9,11 +9,15 @@
     "name": "Vercel · View deployment",
     "description": "Look up a Vercel deployment by id and render a status card with branch, commit, and live URL.",
     "icon": "https://cdn.mcp-apps.directory/icons/vercel.svg",
-    "categories": ["dev-tools"]
+    "categories": [
+      "dev-tools"
+    ]
   },
   "auth": {
     "type": "oauth2",
-    "scopes": ["read:deployments"]
+    "scopes": [
+      "read:deployments"
+    ]
   },
   "tools": [
     {
@@ -22,49 +26,78 @@
       "description": "Fetch a deployment by id. Returns status, branch, commit, and the production URL when available.",
       "inputSchema": {
         "type": "object",
-        "required": ["deployment_id"],
+        "required": [
+          "deployment_id"
+        ],
         "properties": {
-          "deployment_id": { "type": "string", "pattern": "^dpl_[A-Za-z0-9]+$" }
+          "deployment_id": {
+            "type": "string",
+            "pattern": "^dpl_[A-Za-z0-9]+$"
+          }
         }
       },
       "outputSchema": {
         "type": "object",
-        "required": ["deployment"],
+        "required": [
+          "deployment"
+        ],
         "properties": {
           "deployment": {
             "type": "object",
-            "required": ["id", "state", "url"],
+            "required": [
+              "id",
+              "state",
+              "url"
+            ],
             "properties": {
-              "id": { "type": "string" },
-              "state": { "type": "string", "enum": ["READY", "BUILDING", "ERROR", "QUEUED", "CANCELED"] },
-              "url": { "type": "string", "format": "uri" },
-              "project": { "type": "string" },
-              "branch": { "type": "string" },
-              "commit_sha": { "type": "string" },
-              "commit_message": { "type": "string" },
-              "created_at": { "type": "string", "format": "date-time" }
+              "id": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string",
+                "enum": [
+                  "READY",
+                  "BUILDING",
+                  "ERROR",
+                  "QUEUED",
+                  "CANCELED"
+                ]
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "project": {
+                "type": "string"
+              },
+              "branch": {
+                "type": "string"
+              },
+              "commit_sha": {
+                "type": "string"
+              },
+              "commit_message": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
             }
           }
         }
       },
-      "securitySchemes": [{ "type": "oauth2", "scopes": ["read:deployments"] }],
-      "annotations": { "readOnlyHint": true, "idempotentHint": true },
-      "_meta": {
-        "ui": { "resourceUri": "ui://widget/vercel-deployment.html", "visibility": ["model", "app"] }
-      }
-    }
-  ],
-  "resources": [
-    {
-      "uri": "ui://widget/vercel-deployment.html",
-      "mimeType": "text/html;profile=mcp-app",
-      "text": "<!doctype html><html><head><meta charset=\"utf-8\"><title>Vercel deployment</title><style>body{font:14px -apple-system,sans-serif;margin:0;padding:16px;background:#000;color:#fff}.card{border:1px solid #333;border-radius:8px;padding:16px}.head{display:flex;justify-content:space-between;align-items:center}.state{font-size:11px;padding:3px 8px;border-radius:999px;font-weight:600}.READY{background:#0070f3;color:#fff}.BUILDING{background:#f5a623;color:#000}.ERROR{background:#e00;color:#fff}.url{font-family:ui-monospace,monospace;font-size:13px;color:#aaa;margin-top:8px;word-break:break-all}.commit{font-size:12px;color:#888;margin-top:6px}a{color:#0070f3;text-decoration:none}</style></head><body><div id=\"root\">Loading...</div><script>function render(d){const x=d?.deployment;if(!x)return;document.getElementById('root').innerHTML=`<div class=\"card\"><div class=\"head\"><strong>${x.project||x.id}</strong><span class=\"state ${x.state}\">${x.state}</span></div><div class=\"url\"><a href=\"https://${x.url}\" target=\"_blank\">${x.url}</a></div><div class=\"commit\">${x.branch||''} · ${x.commit_sha?x.commit_sha.slice(0,7):''} ${x.commit_message||''}</div></div>`}window.openai?.toolOutput&&render(window.openai.toolOutput);window.addEventListener('message',e=>{if(e.data?.type==='ui/notifications/tool-result')render(e.data.params?.structuredContent)});</script></body></html>",
-      "_meta": {
-        "ui": {
-          "domain": "vercel-deployment.widget.mcp-apps.directory",
-          "prefersBorder": false,
-          "csp": { "connectDomains": ["api.vercel.com"], "resourceDomains": ["vercel.com"] }
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read:deployments"
+          ]
         }
+      ],
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
       }
     }
   ]

@@ -276,14 +276,14 @@ Every SDK is published by the modelcontextprotocol GitHub org, usually with a la
 
 ## Starter manifests
 
-For the impatient: this repo ships 12 curated starter manifests under [`entries/`](entries/) that you can copy into a host or install via the CLI. Six of them ship an [Authsome](https://authsome.ai) recipe for safe credential injection.
+Twelve starter MCP server install configs live under [`entries/`](entries/). Each one is a thin JSON file with the canonical `server.url`, the auth model, and the tool input/output schemas. No fictional widget HTML, no screenshots; just enough to install with one command:
 
 ```bash
 npm install -g mcp-apps
 mcp-apps install linear-search --host both
 ```
 
-Read [`entries/`](entries/) for the per-vendor README and starter manifest. These are community-authored manifests, not vendor-shipped widgets. They follow the [manifest schema](schema/manifest.schema.json) we maintain.
+Six entries (Stripe, Resend, Gmail, Slack, Linear, Supabase) also ship an `authsome.md` recipe showing how to keep the third-party API key out of the host's connector store. See [`entries/`](entries/) for the per-vendor configs. Manifest format: [schema/manifest.schema.json](schema/manifest.schema.json).
 
 ## Contributing
 

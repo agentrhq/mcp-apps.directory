@@ -9,7 +9,9 @@
     "name": "Cal.com · Book meeting",
     "description": "Book a Cal.com meeting on an event type and render the confirmation card with timezone-aware time.",
     "icon": "https://cdn.mcp-apps.directory/icons/calcom.svg",
-    "categories": ["ops"]
+    "categories": [
+      "ops"
+    ]
   },
   "auth": {
     "type": "api-key",
@@ -24,54 +26,92 @@
       "description": "Create a booking on a Cal.com event type. Returns the confirmation with start, attendee, and meeting URL.",
       "inputSchema": {
         "type": "object",
-        "required": ["event_type_id", "start", "attendee_email"],
+        "required": [
+          "event_type_id",
+          "start",
+          "attendee_email"
+        ],
         "properties": {
-          "event_type_id": { "type": "integer", "minimum": 1 },
-          "start": { "type": "string", "format": "date-time" },
-          "attendee_email": { "type": "string", "format": "email" },
-          "attendee_name": { "type": "string", "maxLength": 100 },
-          "timezone": { "type": "string", "default": "UTC" },
-          "notes": { "type": "string", "maxLength": 1000 }
+          "event_type_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "attendee_email": {
+            "type": "string",
+            "format": "email"
+          },
+          "attendee_name": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "timezone": {
+            "type": "string",
+            "default": "UTC"
+          },
+          "notes": {
+            "type": "string",
+            "maxLength": 1000
+          }
         }
       },
       "outputSchema": {
         "type": "object",
-        "required": ["booking"],
+        "required": [
+          "booking"
+        ],
         "properties": {
           "booking": {
             "type": "object",
-            "required": ["id", "uid", "title", "start", "url"],
+            "required": [
+              "id",
+              "uid",
+              "title",
+              "start",
+              "url"
+            ],
             "properties": {
-              "id": { "type": "integer" },
-              "uid": { "type": "string" },
-              "title": { "type": "string" },
-              "start": { "type": "string", "format": "date-time" },
-              "end": { "type": "string", "format": "date-time" },
-              "url": { "type": "string", "format": "uri" },
-              "attendee_name": { "type": "string" },
-              "timezone": { "type": "string" }
+              "id": {
+                "type": "integer"
+              },
+              "uid": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "start": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "end": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "attendee_name": {
+                "type": "string"
+              },
+              "timezone": {
+                "type": "string"
+              }
             }
           }
         }
       },
-      "securitySchemes": [{ "type": "api-key" }],
-      "annotations": { "destructiveHint": false },
-      "_meta": {
-        "ui": { "resourceUri": "ui://widget/calcom-book.html", "visibility": ["model", "app"] }
-      }
-    }
-  ],
-  "resources": [
-    {
-      "uri": "ui://widget/calcom-book.html",
-      "mimeType": "text/html;profile=mcp-app",
-      "text": "<!doctype html><html><head><meta charset=\"utf-8\"><title>Cal.com booking</title><style>body{font:14px -apple-system,sans-serif;margin:0;padding:20px;background:#fff;color:#0f172a}.card{border:1px solid #e2e8f0;border-radius:12px;padding:20px}.title{font-weight:700;font-size:16px}.time{color:#475569;margin-top:6px}.meta{display:flex;gap:16px;color:#475569;font-size:13px;margin-top:10px}a{color:#2563eb;text-decoration:none}</style></head><body><div id=\"root\">Booking...</div><script>function fmt(s,tz){return new Date(s).toLocaleString(undefined,{timeZone:tz||'UTC',dateStyle:'full',timeStyle:'short'})}function render(d){const b=d?.booking;if(!b)return;document.getElementById('root').innerHTML=`<a class=\"card\" href=\"${b.url}\" target=\"_blank\"><div class=\"title\">${b.title}</div><div class=\"time\">${fmt(b.start,b.timezone)}</div><div class=\"meta\"><span>${b.attendee_name||''}</span><span>${b.timezone||'UTC'}</span></div></a>`}window.openai?.toolOutput&&render(window.openai.toolOutput);window.addEventListener('message',e=>{if(e.data?.type==='ui/notifications/tool-result')render(e.data.params?.structuredContent)});</script></body></html>",
-      "_meta": {
-        "ui": {
-          "domain": "calcom-book.widget.mcp-apps.directory",
-          "prefersBorder": true,
-          "csp": { "connectDomains": ["api.cal.com"], "resourceDomains": ["app.cal.com"] }
+      "securitySchemes": [
+        {
+          "type": "api-key"
         }
+      ],
+      "annotations": {
+        "destructiveHint": false
       }
     }
   ]
