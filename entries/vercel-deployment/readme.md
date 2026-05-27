@@ -44,4 +44,4 @@ Vercel OAuth with `read:deployments`. First call links via the host's connector 
 
 ---
 
-Curated by [Authsome](https://authsome.dev) · agent identity for third-party APIs.
+Curated by [Authsome](https://authsome.ai) · agent identity for third-party APIs.

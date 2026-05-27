@@ -31,7 +31,7 @@ Hosts that handle OAuth on your behalf either ask you to register a Google Cloud
 4. Point this entry's `server.url` at your proxy:
 
    ```diff
-   - "url": "https://mcp.gmail.agentr.dev/v1",
+   - "url": "https://gmailmcp.googleapis.com/mcp/v1",
    + "url": "https://gmail.compose.<your-authsome-host>/v1",
    ```
 
@@ -49,4 +49,4 @@ The host now treats the proxy as a no-auth MCP server. Authsome refreshes the ac
 - Token refresh handled outside the host, so the host never holds a long-lived refresh token.
 - Per-user vaulting: each Authsome user can link their own Gmail without sharing tokens.
 
-See [authsome.dev/docs/oauth](https://authsome.dev/docs/oauth).
+See [authsome.ai/docs/quickstart](https://authsome.ai/docs/quickstart).

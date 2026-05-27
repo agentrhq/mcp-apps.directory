@@ -44,4 +44,4 @@ Personal API key from [app.posthog.com/settings/user-api-keys](https://app.posth
 
 ---
 
-Curated by [Authsome](https://authsome.dev) · agent identity for third-party APIs.
+Curated by [Authsome](https://authsome.ai) · agent identity for third-party APIs.

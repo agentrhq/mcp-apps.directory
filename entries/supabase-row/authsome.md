@@ -52,4 +52,4 @@ If it leaks via the host's logs or connector store, the blast radius is your ent
 
 - The agent cannot read arbitrary tables (which is the entire point).
 
-See [authsome.dev/docs/quickstart](https://authsome.dev/docs/quickstart).
+See [authsome.ai/docs/quickstart](https://authsome.ai/docs/quickstart).

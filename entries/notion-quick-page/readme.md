@@ -44,4 +44,4 @@ Notion's official remote MCP at [mcp.notion.com](https://www.notion.com/help/not
 
 ---
 
-Curated by [Authsome](https://authsome.dev) · agent identity for third-party APIs.
+Curated by [Authsome](https://authsome.ai) · agent identity for third-party APIs.

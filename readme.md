@@ -52,8 +52,8 @@ This list is the *Apps and widgets* layer on top of [punkpeye/awesome-mcp-server
 - 🎖️ Officially shipped by the vendor.
 - 🏠 Self-hosted only. No vendor-hosted endpoint.
 - ⚠ Experimental or unmaintained.
-- Trailing chip pairs carry the load-bearing facts: `` `license` `` and `` `auth/host` ``.
-- Star counts use `★ N.Nk` for the open-source items where momentum matters.
+- Trailing backtick chips show the license and the auth or hosting model.
+- Star counts shown as `★ N.Nk` for open-source items above ~500 stars.
 
 ## Apps SDK widgets (cross-host)
 
@@ -76,13 +76,13 @@ ChatGPT-only widget UIs from the [Apps SDK launch partners](https://openai.com/i
 
 Claude-only widget UIs from [Anthropic's January 2026 launch](https://techcrunch.com/2026/01/26/anthropic-launches-interactive-claude-apps-including-slack-and-other-workplace-tools/).
 
-- 🎖️ [Asana](https://www.anthropic.com/news) - Project timelines and task updates with interactive UI. `claude`
-- 🎖️ [Box](https://www.anthropic.com/news) - File management with rendered previews. `claude`
-- 🎖️ [Hex](https://www.anthropic.com/news) - Inline data visualization. `claude`
-- 🎖️ [Amplitude](https://www.anthropic.com/news) - Analytics dashboards in chat. `claude`
-- 🎖️ [monday.com](https://www.anthropic.com/news) - Board updates with live UI. `claude`
-- 🎖️ [Clay](https://www.anthropic.com/news) - Company research cards. `claude`
-- 🎖️ [Slack (widget)](https://www.anthropic.com/news) - Drafts with live message preview in Claude. `claude`
+- 🎖️ [Asana](https://asana.com/) - Project timelines and task updates with interactive UI. `claude`
+- 🎖️ [Box](https://www.box.com/) - File management with rendered previews. `claude`
+- 🎖️ [Hex](https://hex.tech/) - Inline data visualization. `claude`
+- 🎖️ [Amplitude](https://amplitude.com/) - Analytics dashboards in chat. `claude`
+- 🎖️ [monday.com](https://monday.com/) - Board updates with live UI. `claude`
+- 🎖️ [Clay](https://www.clay.com/) - Company research cards. `claude`
+- 🎖️ [Slack (widget)](https://slack.com/) - Drafts with live message preview in Claude. `claude`
 
 ## Open-source widget examples
 
@@ -101,7 +101,7 @@ Copyable widget code we have verified resolves on GitHub.
 
 ## MCP servers (tool-only)
 
-No widget UI, but production-grade tools exposed over MCP. Use these wherever the agent needs to *do* something, not display something.
+No widget UI. Tools exposed over MCP for when the agent needs to *do* something rather than display something.
 
 ### Communication
 
@@ -276,7 +276,7 @@ Every SDK is published by the modelcontextprotocol GitHub org, usually with a la
 
 ## Starter manifests
 
-For the impatient: this repo ships 12 curated starter manifests under [`entries/`](entries/) that you can copy into a host or install via the CLI. Six of them ship an [Authsome](https://authsome.dev) recipe for safe credential injection.
+For the impatient: this repo ships 12 curated starter manifests under [`entries/`](entries/) that you can copy into a host or install via the CLI. Six of them ship an [Authsome](https://authsome.ai) recipe for safe credential injection.
 
 ```bash
 npm install -g mcp-apps
@@ -302,4 +302,4 @@ The list is intentionally smaller than the underlying ecosystem. We only include
 
 ---
 
-Curated by [Authsome](https://authsome.dev) · agent identity for third-party APIs.
+Curated by [Authsome](https://authsome.ai) · agent identity for third-party APIs.

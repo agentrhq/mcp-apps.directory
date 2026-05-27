@@ -27,7 +27,7 @@ A leaked Stripe key is a same-day compliance incident. Authsome proxies the requ
 3. Point this entry's `server.url` at your Authsome proxy instead of `mcp.stripe.com`:
 
    ```diff
-   - "url": "https://mcp.stripe.com/v1",
+   - "url": "https://mcp.stripe.com",
    + "url": "https://stripe.charges.<your-authsome-host>/v1",
    ```
 
@@ -51,4 +51,4 @@ The host now sends requests with no `Authorization` header at all. Authsome inje
 - Hard cap on charges per minute, enforced outside the LLM.
 - Compliance: the key never crosses the model provider's boundary.
 
-See [authsome.dev/docs/quickstart](https://authsome.dev/docs/quickstart) for the proxy setup.
+See [authsome.ai/docs/quickstart](https://authsome.ai/docs/quickstart) for the proxy setup.

@@ -46,4 +46,4 @@ Resend API key. **Use a domain-scoped sending key, not your account-level key.**
 
 ---
 
-Curated by [Authsome](https://authsome.dev) · agent identity for third-party APIs.
+Curated by [Authsome](https://authsome.ai) · agent identity for third-party APIs.

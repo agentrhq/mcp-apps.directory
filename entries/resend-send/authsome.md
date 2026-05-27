@@ -22,7 +22,7 @@ A Resend key can send email from any domain you have verified. If it leaks, atta
 3. Point this entry at the proxy:
 
    ```diff
-   - "url": "https://mcp.resend.com/v1",
+   - "url": "http://127.0.0.1:3000/mcp",
    + "url": "https://resend.send.<your-authsome-host>/v1",
    ```
 
@@ -40,4 +40,4 @@ The model emits a tool call with no auth header; Authsome injects the key, valid
 - 20-message rate limit per minute prevents runaway loops.
 - Audit log of every send by which agent, with the resulting message id.
 
-See [authsome.dev/docs/quickstart](https://authsome.dev/docs/quickstart).
+See [authsome.ai/docs/quickstart](https://authsome.ai/docs/quickstart).

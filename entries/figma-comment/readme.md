@@ -44,4 +44,4 @@ Figma announced first-class MCP App support in January 2026.
 
 ---
 
-Curated by [Authsome](https://authsome.dev) · agent identity for third-party APIs.
+Curated by [Authsome](https://authsome.ai) · agent identity for third-party APIs.

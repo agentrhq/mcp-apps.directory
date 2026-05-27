@@ -44,4 +44,4 @@ Google ships the official Gmail MCP server at [gmailmcp.googleapis.com/mcp/v1](h
 
 ---
 
-Curated by [Authsome](https://authsome.dev) · agent identity for third-party APIs.
+Curated by [Authsome](https://authsome.ai) · agent identity for third-party APIs.

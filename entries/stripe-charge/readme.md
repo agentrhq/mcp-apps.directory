@@ -44,4 +44,4 @@ Stripe ships an official MCP at [mcp.stripe.com](https://docs.stripe.com/mcp). T
 
 ---
 
-Curated by [Authsome](https://authsome.dev) · agent identity for third-party APIs.
+Curated by [Authsome](https://authsome.ai) · agent identity for third-party APIs.

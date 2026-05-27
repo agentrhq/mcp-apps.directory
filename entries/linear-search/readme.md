@@ -46,8 +46,8 @@ Uses Linear's remote MCP OAuth flow. First call triggers the host's connector li
 
 ## Source
 
-Linear ships the remote MCP server at `https://mcp.linear.app/sse`. This entry wraps that server with the official Apps SDK widget bundle.
+Linear ships the remote MCP server at `https://mcp.linear.app/mcp`. This entry wraps that server with the official Apps SDK widget bundle.
 
 ---
 
-Curated by [Authsome](https://authsome.dev) · agent identity for third-party APIs.
+Curated by [Authsome](https://authsome.ai) · agent identity for third-party APIs.

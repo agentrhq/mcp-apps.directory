@@ -28,7 +28,7 @@ A single shared bot, fronted by Authsome, is friendlier for ops and easier to au
 3. Point this entry at the proxy:
 
    ```diff
-   - "url": "https://mcp.slack.com/v1",
+   - "url": "https://mcp.slack.com/mcp",
    + "url": "https://slack.quick-post.<your-authsome-host>/v1",
    ```
 
@@ -44,4 +44,4 @@ A single shared bot, fronted by Authsome, is friendlier for ops and easier to au
 - Channel allow-list enforced outside the model.
 - The agent cannot DM users or post in unlisted channels even if a prompt asks it to.
 
-See [authsome.dev/docs/quickstart](https://authsome.dev/docs/quickstart).
+See [authsome.ai/docs/quickstart](https://authsome.ai/docs/quickstart).

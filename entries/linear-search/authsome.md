@@ -27,7 +27,7 @@ Per-user OAuth means every developer links their personal Linear account to the 
 3. Point this entry at the proxy:
 
    ```diff
-   - "url": "https://mcp.linear.app/sse",
+   - "url": "https://mcp.linear.app/mcp",
    + "url": "https://linear.search.<your-authsome-host>/sse",
    - "transport": "sse"
    + "transport": "sse"
@@ -45,4 +45,4 @@ Per-user OAuth means every developer links their personal Linear account to the 
 - Read-only enforcement: even if a prompt asks for `createIssue`, the proxy rejects it.
 - Per-team scope: extend the `--allow-teams` flag to restrict the agent to a single Linear team.
 
-See [authsome.dev/docs/quickstart](https://authsome.dev/docs/quickstart).
+See [authsome.ai/docs/quickstart](https://authsome.ai/docs/quickstart).
