@@ -178,6 +178,7 @@ No widget UI. Tools exposed over MCP for when the agent needs to *do* something 
 - 🎖️ [Snowflake Labs MCP](https://github.com/Snowflake-Labs/mcp) - Cortex AI, object management, SQL, semantic views. ★ 288
 - [isaacwasserman/mcp-snowflake-server](https://github.com/isaacwasserman/mcp-snowflake-server) - Community Snowflake server with broader coverage. ★ 183 `mit`
 - [ergut/mcp-bigquery-server](https://github.com/ergut/mcp-bigquery-server) - Read-only BigQuery for LLMs. ★ 140 `mit`
+- 🎖️ [Xquik](https://docs.xquik.com/mcp/overview) - X data, monitoring, and workflow automation. `xquik.com/mcp` `api-key`
 - [haris-musa/excel-mcp-server](https://github.com/haris-musa/excel-mcp-server) - Excel file manipulation. ★ 3.9k `mit` `🏠`
 - [antvis/mcp-server-chart](https://github.com/antvis/mcp-server-chart) - 25+ chart types via AntV. ★ 4.1k `mit`
 
