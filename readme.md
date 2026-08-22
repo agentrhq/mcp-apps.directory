@@ -209,6 +209,7 @@ No widget UI. Tools exposed over MCP for when the agent needs to *do* something 
 ### Travel
 
 - [punitarani/fli](https://github.com/punitarani/fli) - Google Flights MCP, CLI and Python library. ★ 2.7k `mit`
+- 🎖️ [Pocket Drives](https://github.com/RevList/pocket-drives-mcp) - Search peer-to-peer luxury, exotic, and EV rentals from independent hosts. `pocketdrives.ai/mcp` `none`
 
 ### Identity and auth
 
